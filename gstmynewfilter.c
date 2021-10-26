@@ -240,31 +240,29 @@ gst_mynewfilter_chain (GstPad * pad, GstObject * parent, GstBuffer * buf)
   Gstmynewfilter *filter;
   GstBuffer *outbuf;
   GstMapInfo map, outmap;
-  gint32 *raw, *outraw;
-  long bufsize;
+  gfloat *raw, *outraw;
+  long bufsize, num_frames, i;
   bufsize = gst_buffer_get_size(buf);
+  num_frames = bufsize / 4; // Number of frames == The buffer size / size of one sample
   outbuf = gst_buffer_new_and_alloc(bufsize);
   GST_BUFFER_TIMESTAMP(outbuf) = GST_BUFFER_TIMESTAMP(buf);
   GST_BUFFER_DURATION(outbuf) = GST_BUFFER_DURATION(buf);
-  gst_buffer_map(buf, &map, GST_MAP_WRITE);
+  gst_buffer_map(buf, &map, GST_MAP_READ);
   gst_buffer_map(outbuf, &outmap, GST_MAP_WRITE);
-  raw = (gint32*)map.data;
-  outraw = (gint32*)outmap.data;
+  raw = (gfloat*)map.data;
+  outraw = (gfloat*)outmap.data;
   filter = GST_MYNEWFILTER (parent);
-  g_print("Buf size is %ld", bufsize);
   if (filter->silent == FALSE){
-    for(int i = 0; i < bufsize; i++) {
+    for(i = 0; i < num_frames; i++) {
       if(raw[i] != 1){
-        g_print("i is %d, Raw[i] is %d\n", i, raw[i]);
         outraw[i] = raw[i] / 2;
-        g_print("OutRaw[i] is %d\n", outraw[i]);
       }
     }
     gst_buffer_unmap (buf, &map);
     gst_buffer_unmap (outbuf, &outmap);
   }
 
-  return gst_pad_push (filter->srcpad, outbuf);
+  return gst_pad_push (filter->srcpad, outbuf); //
 }
 
 
