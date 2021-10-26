@@ -209,6 +209,7 @@ gst_mynewfilter_sink_event (GstPad * pad, GstObject * parent,
 
   filter = GST_MYNEWFILTER (parent);
 
+// Logging events //
   GST_LOG_OBJECT (filter, "Received %s event: %" GST_PTR_FORMAT,
       GST_EVENT_TYPE_NAME (event), event);
 
@@ -216,11 +217,10 @@ gst_mynewfilter_sink_event (GstPad * pad, GstObject * parent,
     case GST_EVENT_CAPS:
     {
       GstCaps *caps;
-
       gst_event_parse_caps (event, &caps);
       /* do something with the caps */
-
       /* and forward */
+      //g_print(caps);
       ret = gst_pad_event_default (pad, parent, event);
       break;
     }
@@ -238,14 +238,33 @@ static GstFlowReturn
 gst_mynewfilter_chain (GstPad * pad, GstObject * parent, GstBuffer * buf)
 {
   Gstmynewfilter *filter;
-
+  GstBuffer *outbuf;
+  GstMapInfo map, outmap;
+  gint32 *raw, *outraw;
+  long bufsize;
+  bufsize = gst_buffer_get_size(buf);
+  outbuf = gst_buffer_new_and_alloc(bufsize);
+  GST_BUFFER_TIMESTAMP(outbuf) = GST_BUFFER_TIMESTAMP(buf);
+  GST_BUFFER_DURATION(outbuf) = GST_BUFFER_DURATION(buf);
+  gst_buffer_map(buf, &map, GST_MAP_WRITE);
+  gst_buffer_map(outbuf, &outmap, GST_MAP_WRITE);
+  raw = (gint32*)map.data;
+  outraw = (gint32*)outmap.data;
   filter = GST_MYNEWFILTER (parent);
+  g_print("Buf size is %ld", bufsize);
+  if (filter->silent == FALSE){
+    for(int i = 0; i < bufsize; i++) {
+      if(raw[i] != 1){
+        g_print("i is %d, Raw[i] is %d\n", i, raw[i]);
+        outraw[i] = raw[i] / 2;
+        g_print("OutRaw[i] is %d\n", outraw[i]);
+      }
+    }
+    gst_buffer_unmap (buf, &map);
+    gst_buffer_unmap (outbuf, &outmap);
+  }
 
-  if (filter->silent == FALSE)
-    g_print ("I'm plugged, therefore I'm in.\n");
-
-  /* just push out the incoming buffer without touching it */
-  return gst_pad_push (filter->srcpad, buf);
+  return gst_pad_push (filter->srcpad, outbuf);
 }
 
 
@@ -285,4 +304,3 @@ GST_PLUGIN_DEFINE (GST_VERSION_MAJOR,
     "mynewfilter",
     mynewfilter_init,
     PACKAGE_VERSION, GST_LICENSE, GST_PACKAGE_NAME, GST_PACKAGE_ORIGIN)
-
