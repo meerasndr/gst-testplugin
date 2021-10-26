@@ -238,33 +238,24 @@ static GstFlowReturn
 gst_mynewfilter_chain (GstPad * pad, GstObject * parent, GstBuffer * buf)
 {
   Gstmynewfilter *filter;
-  GstBuffer *outbuf;
-  GstMapInfo map, outmap;
-  gfloat *raw, *outraw;
+  GstMapInfo map;
+  gfloat *raw;
   long bufsize, num_frames, i;
   bufsize = gst_buffer_get_size(buf);
-  num_frames = bufsize / 4; // Number of frames == The buffer size / size of one sample
-  outbuf = gst_buffer_new_and_alloc(bufsize);
-  GST_BUFFER_TIMESTAMP(outbuf) = GST_BUFFER_TIMESTAMP(buf);
-  GST_BUFFER_DURATION(outbuf) = GST_BUFFER_DURATION(buf);
-  gst_buffer_map(buf, &map, GST_MAP_READ);
-  gst_buffer_map(outbuf, &outmap, GST_MAP_WRITE);
+  num_frames = bufsize / 4; // Number of audio frames == buffer size / size of one sample
+  gst_buffer_map(buf, &map, GST_MAP_WRITE);
   raw = (gfloat*)map.data;
-  outraw = (gfloat*)outmap.data;
   filter = GST_MYNEWFILTER (parent);
   if (filter->silent == FALSE){
     for(i = 0; i < num_frames; i++) {
       if(raw[i] != 1){
-        outraw[i] = raw[i] / 2;
+        raw[i] = raw[i] / 3;
       }
     }
     gst_buffer_unmap (buf, &map);
-    gst_buffer_unmap (outbuf, &outmap);
   }
-
-  return gst_pad_push (filter->srcpad, outbuf); //
+  return gst_pad_push (filter->srcpad, buf); //
 }
-
 
 /* entry point to initialize the plug-in
  * initialize the plug-in itself
