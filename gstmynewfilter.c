@@ -248,9 +248,7 @@ gst_mynewfilter_chain (GstPad * pad, GstObject * parent, GstBuffer * buf)
   filter = GST_MYNEWFILTER (parent);
   if (filter->silent == FALSE){
     for(i = 0; i < num_frames; i++) {
-      if(raw[i] != 1){
         raw[i] = raw[i] / 3;
-      }
     }
     gst_buffer_unmap (buf, &map);
   }
