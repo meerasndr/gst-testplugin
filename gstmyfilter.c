@@ -115,12 +115,12 @@ GST_STATIC_PAD_TEMPLATE ("sink",
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_CODE (GstMyfilter, gst_myfilter, GST_TYPE_BASE_TRANSFORM,
+G_DEFINE_TYPE_WITH_CODE (Gstmyfilter, gst_myfilter, GST_TYPE_BASE_TRANSFORM,
     GST_DEBUG_CATEGORY_INIT (gst_myfilter_debug_category, "myfilter", 0,
         "debug category for myfilter element"));
 
 static void
-gst_myfilter_class_init (GstMyfilterClass * klass)
+gst_myfilter_class_init (GstmyfilterClass * klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
   GstBaseTransformClass *base_transform_class =
@@ -179,7 +179,7 @@ gst_myfilter_class_init (GstMyfilterClass * klass)
 }
 
 static void
-gst_myfilter_init (GstMyfilter * myfilter)
+gst_myfilter_init (Gstmyfilter * myfilter)
 {
 }
 
@@ -187,7 +187,7 @@ void
 gst_myfilter_set_property (GObject * object, guint property_id,
     const GValue * value, GParamSpec * pspec)
 {
-  GstMyfilter *myfilter = GST_MYFILTER (object);
+  Gstmyfilter *myfilter = GST_MYFILTER (object);
 
   GST_DEBUG_OBJECT (myfilter, "set_property");
 
@@ -202,7 +202,7 @@ void
 gst_myfilter_get_property (GObject * object, guint property_id,
     GValue * value, GParamSpec * pspec)
 {
-  GstMyfilter *myfilter = GST_MYFILTER (object);
+  Gstmyfilter *myfilter = GST_MYFILTER (object);
 
   GST_DEBUG_OBJECT (myfilter, "get_property");
 
@@ -217,7 +217,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // void
 // gst_myfilter_dispose (GObject * object)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (object);
+//   Gstmyfilter *myfilter = GST_MYFILTER (object);
 //
 //   GST_DEBUG_OBJECT (myfilter, "dispose");
 //
@@ -229,7 +229,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // void
 // gst_myfilter_finalize (GObject * object)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (object);
+//   Gstmyfilter *myfilter = GST_MYFILTER (object);
 //
 //   GST_DEBUG_OBJECT (myfilter, "finalize");
 //
@@ -242,7 +242,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // gst_myfilter_transform_caps (GstBaseTransform * trans,
 //     GstPadDirection direction, GstCaps * caps, GstCaps * filter)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //   GstCaps *othercaps;
 //
 //   GST_DEBUG_OBJECT (myfilter, "transform_caps");
@@ -275,7 +275,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // gst_myfilter_fixate_caps (GstBaseTransform * trans, GstPadDirection direction,
 //     GstCaps * caps, GstCaps * othercaps)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "fixate_caps");
 //
@@ -286,7 +286,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // gst_myfilter_accept_caps (GstBaseTransform * trans, GstPadDirection direction,
 //     GstCaps * caps)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "accept_caps");
 //
@@ -297,7 +297,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // gst_myfilter_set_caps (GstBaseTransform * trans, GstCaps * incaps,
 //     GstCaps * outcaps)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "set_caps");
 //
@@ -308,7 +308,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // gst_myfilter_query (GstBaseTransform * trans, GstPadDirection direction,
 //     GstQuery * query)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "query");
 //
@@ -319,7 +319,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // static gboolean
 // gst_myfilter_decide_allocation (GstBaseTransform * trans, GstQuery * query)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "decide_allocation");
 //
@@ -330,7 +330,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // gst_myfilter_filter_meta (GstBaseTransform * trans, GstQuery * query, GType api,
 //     const GstStructure * params)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "filter_meta");
 //
@@ -342,7 +342,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // gst_myfilter_propose_allocation (GstBaseTransform * trans,
 //     GstQuery * decide_query, GstQuery * query)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "propose_allocation");
 //
@@ -355,7 +355,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 //     GstPadDirection direction, GstCaps * caps, gsize size, GstCaps * othercaps,
 //     gsize * othersize)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "transform_size");
 //
@@ -366,7 +366,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // gst_myfilter_get_unit_size (GstBaseTransform * trans, GstCaps * caps,
 //     gsize * size)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "get_unit_size");
 //
@@ -377,7 +377,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // static gboolean
 // gst_myfilter_start (GstBaseTransform * trans)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "start");
 //
@@ -387,7 +387,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // static gboolean
 // gst_myfilter_stop (GstBaseTransform * trans)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "stop");
 //
@@ -398,7 +398,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // static gboolean
 // gst_myfilter_sink_event (GstBaseTransform * trans, GstEvent * event)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "sink_event");
 //
@@ -410,7 +410,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // static gboolean
 // gst_myfilter_src_event (GstBaseTransform * trans, GstEvent * event)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "src_event");
 //
@@ -422,7 +422,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // gst_myfilter_prepare_output_buffer (GstBaseTransform * trans, GstBuffer * input,
 //     GstBuffer ** outbuf)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "prepare_output_buffer");
 //
@@ -434,7 +434,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // gst_myfilter_copy_metadata (GstBaseTransform * trans, GstBuffer * input,
 //     GstBuffer * outbuf)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "copy_metadata");
 //
@@ -445,7 +445,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // gst_myfilter_transform_meta (GstBaseTransform * trans, GstBuffer * outbuf,
 //     GstMeta * meta, GstBuffer * inbuf)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "transform_meta");
 //
@@ -455,7 +455,7 @@ gst_myfilter_get_property (GObject * object, guint property_id,
 // static void
 // gst_myfilter_before_transform (GstBaseTransform * trans, GstBuffer * buffer)
 // {
-//   GstMyfilter *myfilter = GST_MYFILTER (trans);
+//   Gstmyfilter *myfilter = GST_MYFILTER (trans);
 //
 //   GST_DEBUG_OBJECT (myfilter, "before_transform");
 //
@@ -466,7 +466,7 @@ static GstFlowReturn
 gst_myfilter_transform (GstBaseTransform * trans, GstBuffer * inbuf,
     GstBuffer * outbuf)
 {
-  GstMyfilter *myfilter = GST_MYFILTER (trans);
+  Gstmyfilter *myfilter = GST_MYFILTER (trans);
 
   GST_DEBUG_OBJECT (myfilter, "transform");
 
@@ -476,7 +476,7 @@ gst_myfilter_transform (GstBaseTransform * trans, GstBuffer * inbuf,
 static GstFlowReturn
 gst_myfilter_transform_ip (GstBaseTransform * trans, GstBuffer * buf)
 {
-  GstMyfilter *myfilter = GST_MYFILTER (trans);
+  Gstmyfilter *myfilter = GST_MYFILTER (trans);
 
   GST_DEBUG_OBJECT (myfilter, "transform_ip");
 
@@ -515,4 +515,3 @@ GST_PLUGIN_DEFINE (GST_VERSION_MAJOR,
     myfilter,
     "FIXME plugin description",
     plugin_init, VERSION, "LGPL", PACKAGE_NAME, GST_PACKAGE_ORIGIN)
-
