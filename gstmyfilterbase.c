@@ -53,6 +53,9 @@ gst_myfilter_class_init (GstmyfilterClass * klass)
   GstBaseTransformClass *base_transform_class =
     GST_BASE_TRANSFORM_CLASS (klass);
 
+  gobject_class->set_property = gst_myfilter_set_property;
+  gobject_class->get_property = gst_myfilter_get_property;
+
   gst_element_class_add_pad_template (GST_ELEMENT_CLASS(base_transform_class),
     gst_static_pad_template_get(&src_factory));
   gst_element_class_add_pad_template (GST_ELEMENT_CLASS(base_transform_class),
@@ -65,22 +68,12 @@ gst_myfilter_class_init (GstmyfilterClass * klass)
     "FIXME Long name", "Generic", "FIXME Description",
     "FIXME <fixme@example.com>");
 
-  gobject_class->set_property = gst_myfilter_set_property;
-  gobject_class->get_property = gst_myfilter_get_property;
   base_transform_class->transform_ip = GST_DEBUG_FUNCPTR (gst_myfilter_transform_ip);
 }
 
 static void
 gst_myfilter_init (Gstmyfilter * myfilter)
 {
-  myfilter->sinkpad = gst_pad_new_from_static_template (&sink_factory, "sink");
-  GST_PAD_SET_PROXY_CAPS (myfilter->sinkpad);
-  gst_element_add_pad (GST_ELEMENT (myfilter), myfilter->sinkpad);
-
-  myfilter->srcpad = gst_pad_new_from_static_template (&src_factory, "src");
-  GST_PAD_SET_PROXY_CAPS (myfilter->srcpad);
-  gst_element_add_pad (GST_ELEMENT (myfilter), myfilter->srcpad);
-
   myfilter->silent = FALSE;
 }
 
