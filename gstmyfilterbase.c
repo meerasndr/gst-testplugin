@@ -53,9 +53,9 @@ gst_myfilter_class_init (GstmyfilterClass * klass)
   GstBaseTransformClass *base_transform_class =
     GST_BASE_TRANSFORM_CLASS (klass);
 
-  gst_element_class_add_static_pad_template (GST_ELEMENT_CLASS (klass),
+  gst_element_class_add_pad_template (GST_ELEMENT_CLASS(base_transform_class),
     gst_static_pad_template_get(&src_factory));
-  gst_element_class_add_static_pad_template (GST_ELEMENT_CLASS (klass),
+  gst_element_class_add_pad_template (GST_ELEMENT_CLASS(base_transform_class),
     gst_static_pad_template_get(&sink_factory));
 
   g_object_class_install_property (gobject_class, PROP_SILENT,
