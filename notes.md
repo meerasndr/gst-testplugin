@@ -9,3 +9,5 @@
 - size of one audio frame = No of bytes per sample * num of channels
     - example: S32LE, two channels
     - size of one audio frame = 4 bytes * 2 = 8 bytes
+
+- `gst-launch-1.0 -v audiotestsrc ! mynewfilter ! wavenc ! filesink location = out1.wav`
